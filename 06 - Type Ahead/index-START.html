@@ -16,6 +16,42 @@
   </form>
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+const cities = [];
+fetch(endpoint).then(prom => prom.json()).then(data => cities.push(...data));
+
+const search = document.querySelector('.search');
+const suggest = document.querySelector('.suggestions');
+
+function filtering(searchStr) {
+  const reg = new RegExp(searchStr, 'gi');
+  return cities.filter(v => v.city.match(reg) || v.state.match(reg));
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function doSearching() {
+  const arr = filtering(this.value)
+  const html = arr.map(i => {
+    const regex = new RegExp(this.value, 'gi');
+    const cityName = i.city.replace(regex, `<span class="hl">${this.value}</span>`);
+    const cityState = i.state.replace(regex, `<span class="hl">${this.value}</span>`);
+    return `
+      <li>
+        <span class="name">${cityName}, ${cityState}</span>
+        <span class="population">${numberWithCommas(i.population)}</span>
+      </li>
+    `
+  }).join('')
+
+  suggest.innerHTML = html;
+  
+}
+
+search.addEventListener('change', doSearching);
+search.addEventListener('keyup', doSearching);
+
 
 </script>
 </body>

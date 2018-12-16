@@ -18,28 +18,54 @@
     }
 
     // Regular
+    console.log('some');
 
     // Interpolated
-
+    console.log(`some${dogs[0].age}`);
     // Styled
+    console.log('%c hjdkshkf', 'font-size: 50px');
 
     // warning!
+    console.warn('skdhfsd');
 
     // Error :|
+    console.error('dsfsd');
 
     // Info
+    console.info('ppp');
 
     // Testing
+    console.assert(1 !== 1, 'wrong');
 
     // clearing
+    console.clear();
 
     // Viewing DOM Elements
+    const p = document.querySelector('p');
+    console.dir(p);
 
     // Grouping together
-
+    dogs.map(v => {
+      console.groupCollapsed(`${v.name}`);
+      console.log(`${v.age} -- ${v.name}`);
+      console.groupEnd(`${v.name}`);
+    })
     // counting
+    console.count('sheba');
+    console.count('sheba');
+    console.count('sheba');
+    console.count('sheba');
+    console.count('sheba');
 
+    console.table(dogs);
     // timing
+    console.time('fetching data');
+    fetch('https://api.github.com/users/xchinaskix')
+      .then(res => res.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+      });
 
   </script>
 </body>
