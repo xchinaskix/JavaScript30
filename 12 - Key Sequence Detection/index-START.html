@@ -7,6 +7,20 @@
 </head>
 <body>
 <script>
+  const secret = 'remars';
+  const ev = [];
+
+  document.addEventListener('keyup', (e) => {
+    ev.push(e.key);
+    console.log(ev);
+    ev.splice(-secret.length -1, ev.length - secret.length);
+
+    if (ev.join('').includes(secret)) {
+      console.log('ding dong');
+      cornify_add();
+    }
+
+  })
 </script>
 </body>
 </html>

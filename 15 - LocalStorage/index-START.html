@@ -28,7 +28,43 @@
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = [];
+  const items = JSON.parse(localStorage.getItem('items')) || [];
+
+  function addToList(e) {
+    e.preventDefault();
+    const text = (this.querySelector('[name=item]')).value;
+    const item = {text, chosen: false};
+    items.push(item);
+    // console.log(items);
+    reRenderList(items, itemsList);
+    localStorage.setItem('items', JSON.stringify(items));
+    this.reset();
+  }
+
+  function reRenderList(itemList = [], listOfItems) {
+    listOfItems.innerHTML = itemList.map((item, i) => {
+      return `
+        <li>
+          <input type="checkbox" data-index=${i} id="item${i}" ${item.chosen ? 'checked' : ''} />
+          <label for="item${i}">${item.text}</label>
+        </li>
+      `;
+    }).join('');
+  }
+
+  function doCheck(e) {
+    if (!e.target.matches('input')) return;
+    const index = e.target.dataset.index;
+    items[index].chosen = !items[index].chosen;
+    localStorage.setItem('items', JSON.stringify(items));
+    reRenderList(items, itemsList);
+    console.log(index);
+
+  }
+
+  addItems.addEventListener('submit', addToList);
+  itemsList.addEventListener('click', doCheck);
+  reRenderList(items, itemsList);
 
 </script>
 

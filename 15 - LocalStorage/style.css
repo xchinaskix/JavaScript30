@@ -8,6 +8,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      /* font-family: Segoe UI Symbol, Symbola; */
       font-family: Futura,"Trebuchet MS",Arial,sans-serif;
     }
 
@@ -61,12 +62,13 @@
     }
 
     .plates input + label:before {
-      content: '⬜️';
+      /* background-image: url('./square-regular.svg'); */
+      content: '⦵';
       margin-right: 10px;
     }
 
     .plates input:checked + label:before {
-      content: '🌮';
+      content: '🍥';
     }
 
     .add-items {
